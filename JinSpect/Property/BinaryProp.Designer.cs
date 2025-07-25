@@ -28,10 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.Binarybtn = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // Binarybtn
+            // 
+            this.Binarybtn.Location = new System.Drawing.Point(15, 15);
+            this.Binarybtn.Name = "Binarybtn";
+            this.Binarybtn.Size = new System.Drawing.Size(75, 23);
+            this.Binarybtn.TabIndex = 2;
+            this.Binarybtn.Text = "button1";
+            this.Binarybtn.UseVisualStyleBackColor = true;
+            // 
+            // BinaryProp
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.Binarybtn);
+            this.Name = "BinaryProp";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button Binarybtn;
     }
 }

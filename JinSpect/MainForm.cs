@@ -49,8 +49,24 @@ namespace JinSpect
             return findForm;
         }
 
+        private void imageOpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CameraForm cameraForm = GetDockForm<CameraForm>();
+            if (cameraForm is null)
+                return;
 
-
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "이미지 파일 선택";
+                openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif";
+                openFileDialog.Multiselect = false;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+                   cameraForm.LoadImage(filePath);
+                }
+            }
+        }
     }
 }
 
