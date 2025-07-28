@@ -48,7 +48,7 @@
             // 
             // btnLoadModel
             // 
-            this.btnLoadModel.Location = new System.Drawing.Point(237, 171);
+            this.btnLoadModel.Location = new System.Drawing.Point(241, 172);
             this.btnLoadModel.Margin = new System.Windows.Forms.Padding(4);
             this.btnLoadModel.Name = "btnLoadModel";
             this.btnLoadModel.Size = new System.Drawing.Size(127, 44);
@@ -74,6 +74,7 @@
             this.txtAIModelPath.Name = "txtAIModelPath";
             this.txtAIModelPath.Size = new System.Drawing.Size(313, 28);
             this.txtAIModelPath.TabIndex = 4;
+            this.txtAIModelPath.TextChanged += new System.EventHandler(this.txtAIModelPath_TextChanged);
             // 
             // cbEngineType
             // 

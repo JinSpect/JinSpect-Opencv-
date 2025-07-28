@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static JinSpect.inspect.SaigeAI;
 
 namespace JinSpect.Property
 {
@@ -20,6 +21,7 @@ namespace JinSpect.Property
         public AIModuleProp()
         {
             InitializeComponent();
+            cbEngineType.DataSource = Enum.GetValues(typeof(EngineType));
         }
 
         private void btnSelAIModel_Click(object sender, EventArgs e)
@@ -58,6 +60,20 @@ namespace JinSpect.Property
 
         private void btnLoadModel_Click(object sender, EventArgs e)
         {
+            //if (string.IsNullOrEmpty(_modelPath))
+            //{
+            //    MessageBox.Show("모델 파일을 선택해주세요.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
+
+            //if (_saigeAI == null)
+            //{
+            //    _saigeAI = Global.Inst.InspStage.AIModul;
+            //}
+
+            //_saigeAI.LoadEngine(_modelPath);
+            //MessageBox.Show("모델이 성공적으로 로드되었습니다", "정보", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             if (string.IsNullOrEmpty(_modelPath))
             {
                 MessageBox.Show("모델 파일을 선택해주세요.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -66,11 +82,24 @@ namespace JinSpect.Property
 
             if (_saigeAI == null)
             {
-                _saigeAI = Global.Inst.InspStage.AIModul;
+                _saigeAI = Global.Inst.InspStage.AIModule;
             }
-
-            _saigeAI.LoadEngine(_modelPath);
-            MessageBox.Show("모델이 성공적으로 로드되었습니다", "정보", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (cbEngineType.SelectedItem is EngineType selectedType)
+            {
+                try
+                {
+                    _saigeAI.LoadEngine(_modelPath, selectedType);
+                    MessageBox.Show("모델이 성공적으로 로드되었습니다.", "정보", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"모델 로드 실패: {ex.Message}", "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("엔진 타입을 선택해주세요.", "오류", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void btnInspAI_Click(object sender, EventArgs e)
@@ -81,7 +110,7 @@ namespace JinSpect.Property
                 return;
             }
             Bitmap bitmap = Global.Inst.InspStage.GetCurrentImage();
-            _saigeAI.InspIAD(bitmap);
+            _saigeAI.RunInspection(bitmap);
 
             Bitmap resultImage = _saigeAI.GetResultImage();
 
@@ -89,6 +118,11 @@ namespace JinSpect.Property
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtAIModelPath_TextChanged(object sender, EventArgs e)
         {
 
         }

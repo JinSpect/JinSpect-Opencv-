@@ -13,7 +13,7 @@ namespace JinSpect.Core
         SaigeAI _saigeAI;
         public InspStage() { }
 
-        public SaigeAI AIModul
+        public SaigeAI AIModule
         {
             get
             {
