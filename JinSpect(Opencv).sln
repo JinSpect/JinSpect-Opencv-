@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36127.28
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinSpect", "JinSpect\JinSpect.csproj", "{52D07828-D9AB-4423-986F-DD01771AE874}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JinSpect(Opencv)", "JinSpect\JinSpect(Opencv).csproj", "{52D07828-D9AB-4423-986F-DD01771AE874}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
