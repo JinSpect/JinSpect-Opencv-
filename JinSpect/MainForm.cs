@@ -14,6 +14,7 @@ namespace JinSpect
     public partial class MainForm : Form
     {
         private static DockPanel _dockPanel;
+        public static FilterForm SharedFilterForm;
 
         public MainForm()
         {
@@ -26,21 +27,23 @@ namespace JinSpect
             Controls.Add(_dockPanel);
 
             _dockPanel.Theme = new VS2015BlueTheme();
-
             LoadDockingWindows();
 
 
         }
         private void LoadDockingWindows()
         {
-           
-            _dockPanel.AllowEndUserDocking = false;
 
+            _dockPanel.AllowEndUserDocking = false;
             var cameraWindow = new CameraForm();
             cameraWindow.Show(_dockPanel, DockState.Document);
 
             var propWindow = new PropertiesForm();
             propWindow.Show(_dockPanel, DockState.DockRight);
+
+            SharedFilterForm = new FilterForm();
+            SharedFilterForm.Show(propWindow.Pane, DockAlignment.Bottom, 0.6);
+
         }
 
         public static T GetDockForm<T>() where T : DockContent

@@ -12,83 +12,210 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace JinSpect
 {
-    public enum PropertyType
-    {
-        Binary,
-        Filter,
-        AIModule
-    }
-
     public partial class PropertiesForm : DockContent
     {
-
-        Dictionary<string, TabPage> _allTabs = new Dictionary<string, TabPage>();
+        private PropertyType _selectedFilter = PropertyType.None;
 
         public PropertiesForm()
         {
             InitializeComponent();
+            cbList.SelectedIndexChanged += cbList_SelectedIndexChanged;
+            checkFilter.CheckedChanged += checkFilter_CheckedChanged;
+        }
+        private void OnRotationPreview(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            if (cameraForm == null) return;
 
+            //if (sender is RotateProp rotateProp)
+            //{
+            //    int angle = rotateProp.Angle;
+            //    cameraForm.PreviewFilter(PropertyType.Rotation, new { Angle = angle });
+            //}
+        }
+        private void cbList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbList.SelectedIndex)
+            {
+                case 0: _selectedFilter = PropertyType.Grayscale; break;
+                case 1: _selectedFilter = PropertyType.HSVscale; break;
+                case 2: _selectedFilter = PropertyType.Flip; break;
+                case 3: _selectedFilter = PropertyType.Pyramid; break;
+                case 4: _selectedFilter = PropertyType.Resize; break;
+                case 5: _selectedFilter = PropertyType.Binary; break;
+                default: _selectedFilter = PropertyType.None; break;
+            }
+            if (_selectedFilter == PropertyType.Grayscale || _selectedFilter == PropertyType.HSVscale)
+                return;
 
-            LoadOptionControl(PropertyType.Filter);
-            LoadOptionControl(PropertyType.Binary);
-            LoadOptionControl(PropertyType.AIModule);
+            var filterForm = MainForm.SharedFilterForm;
+            if (filterForm != null)
+            {
+                //filterForm.SelectTab(_selectedFilter.ToString());
+                //if (_selectedFilter == PropertyType.Rotation)
+                //{
+                //    ////var tab = filterForm.GetTabPage("Rotation");
+                //    ////if (tab != null && tab.Controls[0] is RotateProp rotateProp)
+                //    //{
+                        
+                //    //    rotateProp.Preview -= OnRotationPreview;
+                //    //    rotateProp.Preview += OnRotationPreview;
+                //    //}
+                //}
+            }
+            else
+            {
+                MessageBox.Show("FilterForm을 찾을 수 없습니다.");
+            }
         }
 
-
-        private void LoadOptionControl(PropertyType propType)
+        private void btnApply_Click(object sender, EventArgs e)
         {
-            string tabName = propType.ToString();
-
-            foreach (TabPage tabPage in tabPropControl.TabPages)
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            if (cameraForm == null)
             {
-                if (tabPage.Text == tabName)
-                    return;
-            }
-
-            if (_allTabs.TryGetValue(tabName, out TabPage page))
-            {
-                tabPropControl.TabPages.Add(page);
+                MessageBox.Show("카메라 창을 찾을 수 없습니다.");
                 return;
             }
 
-            UserControl _inspProp = CreateUserControl(propType);
-            if (_inspProp == null)
-                return;
+            dynamic options = null;
 
-            TabPage newTab = new TabPage(tabName)
+            switch (_selectedFilter)
             {
-                Dock = DockStyle.Fill
-            };
-            _inspProp.Dock = DockStyle.Fill;
-            newTab.Controls.Add(_inspProp);
-            tabPropControl.TabPages.Add(newTab);
-            tabPropControl.SelectedTab = newTab; // 새 탭 선택
+                case PropertyType.Flip:
+                    {
+                        var filterForm = MainForm.SharedFilterForm;
+                        if (filterForm != null)
+                        {
+                            var tab = filterForm.GetTabPage("Flip");
+                            if (tab != null && tab.Controls.Count > 0 && tab.Controls[0] is FlipProp flipProp)
+                            {
+                                var selected = flipProp.SelectedFlipMode;
+                                if (selected == null)
+                                {
+                                    MessageBox.Show("반전 모드를 선택하세요.");
+                                    return;
+                                }
 
-            _allTabs[tabName] = newTab;
-        }
+                                options = new { FlipMode = selected.Value };
+                            }
+                            else
+                            {
+                                MessageBox.Show("Flip 설정을 찾을 수 없습니다.");
+                                return;
+                            }
+                        }
+                        break;
+                    }
 
-        private UserControl CreateUserControl(PropertyType propType)
-        {
-            UserControl curProp = null;
-            switch (propType)
-            {
+                case PropertyType.Pyramid:
+                    {
+                        var filterForm = MainForm.SharedFilterForm;
+                        if (filterForm != null)
+                        {
+                            var tab = filterForm.GetTabPage("Pyramid");
+                            if (tab != null && tab.Controls.Count > 0 && tab.Controls[0] is PyramidProp pyramidProp)
+                            {
+                                string direction = pyramidProp.SelectedDirection;
+                                options = new { Direction = direction };
+                            }
+                            else
+                            {
+                                MessageBox.Show("Pyramid 설정을 찾을 수 없습니다.");
+                                return;
+                            }
+                        }
+                        break;
+                    }
+
+                case PropertyType.Resize:
+                    {
+                        var filterForm = MainForm.SharedFilterForm;
+                        var tab = filterForm?.GetTabPage("Resize");
+                        if (tab != null && tab.Controls[0] is ResizeProp resizeProp)
+                        {
+                            double fx = (double)resizeProp.NumericUpDownX.Value;
+                            double fy = (double)resizeProp.NumericUpDownY.Value;
+
+                            if (fx <= 0 || fx > 1000 || fy <= 0 || fy > 1000)
+                            {
+                                MessageBox.Show("0보다 크고 1000 이하의 값을 입력하세요.");
+                                return;
+                            }
+
+                            options = new { Fx = fx, Fy = fy };
+                        }
+                        else
+                        {
+                            MessageBox.Show("Resize 설정을 찾을 수 없습니다.");
+                            return;
+                        }
+                        break;
+                    }
+
                 case PropertyType.Binary:
-                    BinaryProp blobProp = new BinaryProp();
-                    curProp = blobProp;
-                    break;
-                case PropertyType.Filter:
-                    ImageFilterProp filterProp = new ImageFilterProp();
-                    curProp = filterProp;
-                    break;
-                case PropertyType.AIModule:
-                    AIModuleProp aiModuleProp = new AIModuleProp();
-                    curProp = aiModuleProp;
-                    break;
-                default:
-                    MessageBox.Show("유효하지 않은 옵션입니다.");
-                    return null;
+                    {
+                        var filterForm = MainForm.SharedFilterForm;
+                        var tab = filterForm.GetTabPage("Binary");
+                        if (tab != null && tab.Controls[0] is BinaryProp binaryProp)
+                        {
+                            int min = binaryProp.Min;
+                            int max = binaryProp.Max;
+                            options = new { Min = min, Max = max };
+                        }
+                        break;
+                    }
+                
+                case PropertyType.Rotation:
+                    {
+                        var filterForm = MainForm.SharedFilterForm;
+                        var tab = filterForm?.GetTabPage("Rotation");
+
+                        if (tab != null && tab.Controls[0] is RotateProp rotateProp)
+                        {
+                            int angle = rotateProp.Angle;
+                            options = new { Angle = angle };
+                            rotateProp.Preview -= OnRotationPreview;
+                            rotateProp.Preview += OnRotationPreview;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Rotation  설정을 찾을 수 없습니다.");
+                            return;
+                        }
+                        break;
+                    }
             }
-            return curProp;
+
+            cameraForm.ApplyFilter(_selectedFilter, options);
+        }
+
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.Undo();
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.Redo();
+        }
+
+        private void btnSrc_Click(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.RestoreOriginal();
+        }
+
+        private void checkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            if (cameraForm != null)
+            {
+                cameraForm.SetFilterMode(checkFilter.Checked);
+            }
         }
     }
 }
