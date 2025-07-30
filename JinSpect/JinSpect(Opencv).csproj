@@ -127,11 +127,29 @@
       <DependentUpon>PropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property\FlipProp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Property\FlipProp.Designer.cs">
+      <DependentUpon>FlipProp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Property\ImageFilterProp.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Property\ImageFilterProp.Designer.cs">
       <DependentUpon>ImageFilterProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Property\PyramidProp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Property\PyramidProp.Designer.cs">
+      <DependentUpon>PyramidProp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Property\ResizeProp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Property\ResizeProp.Designer.cs">
+      <DependentUpon>ResizeProp.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="CameraForm.resx">
       <DependentUpon>CameraForm.cs</DependentUpon>
@@ -163,8 +181,17 @@
     <EmbeddedResource Include="Property\BinaryProp.resx">
       <DependentUpon>BinaryProp.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Property\FlipProp.resx">
+      <DependentUpon>FlipProp.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Property\ImageFilterProp.resx">
       <DependentUpon>ImageFilterProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Property\PyramidProp.resx">
+      <DependentUpon>PyramidProp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Property\ResizeProp.resx">
+      <DependentUpon>ResizeProp.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
