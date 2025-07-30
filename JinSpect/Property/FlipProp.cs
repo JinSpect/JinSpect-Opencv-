@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,9 +18,19 @@ namespace JinSpect.Property
             InitializeComponent();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        public FlipMode? SelectedFlipMode
         {
-
+            get
+            {
+                if (xFlip.Checked) return FlipMode.Y;
+                if (yFlip.Checked) return FlipMode.X;
+                if (xyFlip.Checked) return FlipMode.XY;
+                return null;
+            }
         }
+        //private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

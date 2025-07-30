@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using JinSpect.Property;
 using WeifenLuo.WinFormsUI.Docking;
 
+
 namespace JinSpect
 {
     public partial class PropertiesForm : DockContent
@@ -42,7 +43,6 @@ namespace JinSpect
                 case 2: _selectedFilter = PropertyType.Flip; break;
                 case 3: _selectedFilter = PropertyType.Pyramid; break;
                 case 4: _selectedFilter = PropertyType.Resize; break;
-                case 5: _selectedFilter = PropertyType.Binary; break;
                 default: _selectedFilter = PropertyType.None; break;
             }
             if (_selectedFilter == PropertyType.Grayscale || _selectedFilter == PropertyType.HSVscale)
@@ -51,13 +51,13 @@ namespace JinSpect
             var filterForm = MainForm.SharedFilterForm;
             if (filterForm != null)
             {
-                //filterForm.SelectTab(_selectedFilter.ToString());
+                filterForm.SelectTab(_selectedFilter.ToString());
                 //if (_selectedFilter == PropertyType.Rotation)
                 //{
                 //    ////var tab = filterForm.GetTabPage("Rotation");
                 //    ////if (tab != null && tab.Controls[0] is RotateProp rotateProp)
                 //    //{
-                        
+
                 //    //    rotateProp.Preview -= OnRotationPreview;
                 //    //    rotateProp.Preview += OnRotationPreview;
                 //    //}
@@ -152,19 +152,6 @@ namespace JinSpect
                         }
                         break;
                     }
-
-                case PropertyType.Binary:
-                    {
-                        var filterForm = MainForm.SharedFilterForm;
-                        var tab = filterForm.GetTabPage("Binary");
-                        if (tab != null && tab.Controls[0] is BinaryProp binaryProp)
-                        {
-                            int min = binaryProp.Min;
-                            int max = binaryProp.Max;
-                            options = new { Min = min, Max = max };
-                        }
-                        break;
-                    }
                 
             }
 
@@ -172,19 +159,19 @@ namespace JinSpect
         }
 
 
-        private void btnUndo_Click(object sender, EventArgs e)
+        private void btnUndo_Click_1(object sender, EventArgs e)
         {
             var cameraForm = MainForm.GetDockForm<CameraForm>();
-            object value = cameraForm?.Undo();
+            cameraForm?.Undo();
         }
 
-        private void btnRedo_Click(object sender, EventArgs e)
+        private void btnRedo_Click_1(object sender, EventArgs e)
         {
             var cameraForm = MainForm.GetDockForm<CameraForm>();
             cameraForm?.Redo();
         }
 
-        private void btnSrc_Click(object sender, EventArgs e)
+        private void btnSrc_Click_1(object sender, EventArgs e)
         {
             var cameraForm = MainForm.GetDockForm<CameraForm>();
             cameraForm?.RestoreOriginal();
@@ -195,7 +182,7 @@ namespace JinSpect
             var cameraForm = MainForm.GetDockForm<CameraForm>();
             if (cameraForm != null)
             {
-                cameraForm.SetFilterMode(checkFilter.Checked);
+                cameraForm.SerFilterMode(checkFilter.Checked);
             }
         }
     }

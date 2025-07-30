@@ -16,5 +16,7 @@ namespace JinSpect.Property
         {
             InitializeComponent();
         }
+        public NumericUpDown NumericUpDownX => numericUpDown1;
+        public NumericUpDown NumericUpDownY => numericUpDown2;
     }
 }

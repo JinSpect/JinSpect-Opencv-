@@ -16,5 +16,18 @@ namespace JinSpect.Property
         {
             InitializeComponent();
         }
+        public string SelectedDirection { get; private set; } = "Down";
+
+        private void btnUP_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectedDirection = "Up";
+        }
+
+        private void btnDown_CheckedChanged(object sender, EventArgs e)
+        {
+            SelectedDirection = "Down";
+        }
+
+
     }
 }

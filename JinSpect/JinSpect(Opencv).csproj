@@ -53,6 +53,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="OpenCvSharp">
+      <HintPath>..\Lib\OpenCvSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenCvSharp.Extensions">
+      <HintPath>..\Lib\OpenCvSharp.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="SaigeVision.Net.Core.V2, Version=2.5.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLib\Dll\Saige\SaigeVision.Net.Core.V2.dll</HintPath>
@@ -107,12 +113,6 @@
     <Compile Include="Property\AIModuleProp.Designer.cs">
       <DependentUpon>AIModuleProp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Property\BinaryProp.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Property\BinaryProp.Designer.cs">
-      <DependentUpon>BinaryProp.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,9 +133,7 @@
     <Compile Include="Property\FlipProp.Designer.cs">
       <DependentUpon>FlipProp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Property\ImageFilterProp.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Property\ImageFilterProp.cs" />
     <Compile Include="Property\ImageFilterProp.Designer.cs">
       <DependentUpon>ImageFilterProp.cs</DependentUpon>
     </Compile>
@@ -177,9 +175,6 @@
     </Compile>
     <EmbeddedResource Include="Property\AIModuleProp.resx">
       <DependentUpon>AIModuleProp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Property\BinaryProp.resx">
-      <DependentUpon>BinaryProp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Property\FlipProp.resx">
       <DependentUpon>FlipProp.cs</DependentUpon>

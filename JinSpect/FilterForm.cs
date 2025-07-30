@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JinSpect.Property;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,8 +20,7 @@ namespace JinSpect
         Flip,
         Pyramid,
         Resize,
-        Binary,
-        Rotation
+        
     }
 
     public partial class FilterForm : DockContent
@@ -32,21 +32,20 @@ namespace JinSpect
             LoadOptionControl(PropertyType.Flip);
             LoadOptionControl(PropertyType.Resize);
             LoadOptionControl(PropertyType.Pyramid);
-            LoadOptionControl(PropertyType.Binary);
-            LoadOptionControl(PropertyType.Rotation);
+            
         }
         private void LoadOptionControl(PropertyType propType)
         {
             string tabName = propType.ToString();
 
-            // 이미 있는 TabPage인지 확인
+            
             foreach (TabPage tabPage in tabPropControl.TabPages)
             {
                 if (tabPage.Text == tabName)
                     return;
             }
 
-            // 딕셔너리에 있으면 추가
+            
             if (_allTabs.TryGetValue(tabName, out TabPage page))
             {
                 tabPropControl.TabPages.Add(page);
@@ -93,17 +92,11 @@ namespace JinSpect
                     curProp = new ResizeProp();
                     break;
 
-                case PropertyType.Binary:
-                    curProp = new BinaryProp();
-                    break;
 
                 case PropertyType.Pyramid:
                     curProp = new PyramidProp();
                     break;
 
-                case PropertyType.Rotation:
-                    curProp = new RotateProp();
-                    break;
 
                 default:
                     MessageBox.Show("유효하지 않은 옵션입니다.");
@@ -139,8 +132,8 @@ namespace JinSpect
 
     }
 
-    internal class FlipProp : UserControl
-    {
+    //internal class FlipProp : UserControl
+    //{
 
-    }
+    //}
 }

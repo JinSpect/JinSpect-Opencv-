@@ -45,6 +45,7 @@
             this.btnRedo.TabIndex = 30;
             this.btnRedo.Text = "다음";
             this.btnRedo.UseVisualStyleBackColor = true;
+            this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click_1);
             // 
             // btnUndo
             // 
@@ -55,6 +56,7 @@
             this.btnUndo.TabIndex = 28;
             this.btnUndo.Text = "이전";
             this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click_1);
             // 
             // btnSrc
             // 
@@ -65,6 +67,7 @@
             this.btnSrc.TabIndex = 27;
             this.btnSrc.Text = "원본";
             this.btnSrc.UseVisualStyleBackColor = true;
+            this.btnSrc.Click += new System.EventHandler(this.btnSrc_Click_1);
             // 
             // btnApply
             // 
@@ -84,8 +87,8 @@
             this.cbList.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cbList.FormattingEnabled = true;
             this.cbList.Items.AddRange(new object[] {
-            "Color → Mono 변환",
-            "Color → HSV 변환",
+            "Color → Mono",
+            "Color → HSV",
             "Flip",
             "Pyramid",
             "Resize",
@@ -136,3 +139,4 @@
         private System.Windows.Forms.CheckBox checkFilter;
     }
 }
+
