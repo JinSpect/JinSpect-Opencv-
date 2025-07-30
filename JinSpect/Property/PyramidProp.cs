@@ -18,16 +18,15 @@ namespace JinSpect.Property
         }
         public string SelectedDirection { get; private set; } = "Down";
 
-        private void btnUP_CheckedChanged(object sender, EventArgs e)
+  
+        private void btnUP_CheckedChanged_1(object sender, EventArgs e)
         {
             SelectedDirection = "Up";
         }
 
-        private void btnDown_CheckedChanged(object sender, EventArgs e)
+        private void btnDown_CheckedChanged_1(object sender, EventArgs e)
         {
             SelectedDirection = "Down";
         }
-
-
     }
 }
