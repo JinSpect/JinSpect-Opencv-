@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.btnRedo = new System.Windows.Forms.Button();
-            this.checkFilter = new System.Windows.Forms.CheckBox();
             this.btnUndo = new System.Windows.Forms.Button();
             this.btnSrc = new System.Windows.Forms.Button();
             this.btnApply = new System.Windows.Forms.Button();
             this.cbList = new System.Windows.Forms.ComboBox();
+            this.checkFilter = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnRedo
@@ -45,17 +45,6 @@
             this.btnRedo.TabIndex = 30;
             this.btnRedo.Text = "다음";
             this.btnRedo.UseVisualStyleBackColor = true;
-            // 
-            // checkFilter
-            // 
-            this.checkFilter.AutoSize = true;
-            this.checkFilter.Location = new System.Drawing.Point(11, 61);
-            this.checkFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.checkFilter.Name = "checkFilter";
-            this.checkFilter.Size = new System.Drawing.Size(89, 19);
-            this.checkFilter.TabIndex = 29;
-            this.checkFilter.Text = "필터적용";
-            this.checkFilter.UseVisualStyleBackColor = true;
             // 
             // btnUndo
             // 
@@ -107,6 +96,17 @@
             this.cbList.Size = new System.Drawing.Size(244, 27);
             this.cbList.TabIndex = 25;
             // 
+            // checkFilter
+            // 
+            this.checkFilter.AutoSize = true;
+            this.checkFilter.Location = new System.Drawing.Point(11, 61);
+            this.checkFilter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.checkFilter.Name = "checkFilter";
+            this.checkFilter.Size = new System.Drawing.Size(89, 19);
+            this.checkFilter.TabIndex = 29;
+            this.checkFilter.Text = "필터적용";
+            this.checkFilter.UseVisualStyleBackColor = true;
+            // 
             // PropertiesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -129,10 +129,10 @@
         #endregion
 
         private System.Windows.Forms.Button btnRedo;
-        private System.Windows.Forms.CheckBox checkFilter;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnSrc;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.ComboBox cbList;
+        private System.Windows.Forms.CheckBox checkFilter;
     }
 }

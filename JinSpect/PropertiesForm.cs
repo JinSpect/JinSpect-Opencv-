@@ -166,25 +166,6 @@ namespace JinSpect
                         break;
                     }
                 
-                case PropertyType.Rotation:
-                    {
-                        var filterForm = MainForm.SharedFilterForm;
-                        var tab = filterForm?.GetTabPage("Rotation");
-
-                        if (tab != null && tab.Controls[0] is RotateProp rotateProp)
-                        {
-                            int angle = rotateProp.Angle;
-                            options = new { Angle = angle };
-                            rotateProp.Preview -= OnRotationPreview;
-                            rotateProp.Preview += OnRotationPreview;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Rotation  설정을 찾을 수 없습니다.");
-                            return;
-                        }
-                        break;
-                    }
             }
 
             cameraForm.ApplyFilter(_selectedFilter, options);
@@ -194,7 +175,7 @@ namespace JinSpect
         private void btnUndo_Click(object sender, EventArgs e)
         {
             var cameraForm = MainForm.GetDockForm<CameraForm>();
-            cameraForm?.Undo();
+            object value = cameraForm?.Undo();
         }
 
         private void btnRedo_Click(object sender, EventArgs e)
