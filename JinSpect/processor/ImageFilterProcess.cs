@@ -1,9 +1,6 @@
 ﻿using OpenCvSharp;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +19,7 @@ namespace JinSpect.Processor
                 case PropertyType.Grayscale:
                     if (src.Channels() == 1)
                     {
-                        dst = src.Clone();
+                        dst = src.Clone(); // 이미 흑백이면 그대로 복사
                     }
                     else
                     {
@@ -55,9 +52,9 @@ namespace JinSpect.Processor
                 case PropertyType.Resize:
                     double fx = options.Fx / 100.0;
                     double fy = options.Fy / 100.0;
-                    Cv2.Resize(src, dst, new OpenCvSharp.Size(), fx, fy); //모호한 표현이라 OpenCvSharp.Size로 수정
+                    Cv2.Resize(src, dst, new Size(), fx, fy);
                     break;
-               
+                
                 default:
                     dst = src.Clone();
                     break;
@@ -66,12 +63,4 @@ namespace JinSpect.Processor
             return dst;
         }
     }
-
-    //    public partial class ImageFilterProp : UserControl
-    //    {
-    //        public ImageFilterProp()
-    //        {
-    //            InitializeComponent();
-    //        }
-    //    }
 }
