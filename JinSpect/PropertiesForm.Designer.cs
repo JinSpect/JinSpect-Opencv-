@@ -78,6 +78,7 @@
             this.btnApply.TabIndex = 26;
             this.btnApply.Text = "적용";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // cbList
             // 
@@ -91,8 +92,7 @@
             "Color → HSV",
             "Flip",
             "Pyramid",
-            "Resize",
-            "Binarization"});
+            "Resize"});
             this.cbList.Location = new System.Drawing.Point(11, 11);
             this.cbList.Margin = new System.Windows.Forms.Padding(2);
             this.cbList.Name = "cbList";

@@ -23,17 +23,17 @@ namespace JinSpect
             cbList.SelectedIndexChanged += cbList_SelectedIndexChanged;
             checkFilter.CheckedChanged += checkFilter_CheckedChanged;
         }
-        private void OnRotationPreview(object sender, EventArgs e)
-        {
-            var cameraForm = MainForm.GetDockForm<CameraForm>();
-            if (cameraForm == null) return;
+        //private void OnRotationPreview(object sender, EventArgs e)
+        //{
+        //    var cameraForm = MainForm.GetDockForm<CameraForm>();
+        //    if (cameraForm == null) return;
 
-            //if (sender is RotateProp rotateProp)
-            //{
-            //    int angle = rotateProp.Angle;
-            //    cameraForm.PreviewFilter(PropertyType.Rotation, new { Angle = angle });
-            //}
-        }
+        //    //if (sender is RotateProp rotateProp)
+        //    //{
+        //    //    int angle = rotateProp.Angle;
+        //    //    cameraForm.PreviewFilter(PropertyType.Rotation, new { Angle = angle });
+        //    //}
+        //}
         private void cbList_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cbList.SelectedIndex)
@@ -66,6 +66,36 @@ namespace JinSpect
             else
             {
                 MessageBox.Show("FilterForm을 찾을 수 없습니다.");
+            }
+        }
+
+
+
+
+        private void btnUndo_Click_1(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.Undo();
+        }
+
+        private void btnRedo_Click_1(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.Redo();
+        }
+
+        private void btnSrc_Click_1(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            cameraForm?.RestoreOriginal();
+        }
+
+        private void checkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            var cameraForm = MainForm.GetDockForm<CameraForm>();
+            if (cameraForm != null)
+            {
+                cameraForm.SerFilterMode(checkFilter.Checked);
             }
         }
 
@@ -152,39 +182,12 @@ namespace JinSpect
                         }
                         break;
                     }
-                
+
             }
 
             cameraForm.ApplyFilter(_selectedFilter, options);
         }
-
-
-        private void btnUndo_Click_1(object sender, EventArgs e)
-        {
-            var cameraForm = MainForm.GetDockForm<CameraForm>();
-            cameraForm?.Undo();
-        }
-
-        private void btnRedo_Click_1(object sender, EventArgs e)
-        {
-            var cameraForm = MainForm.GetDockForm<CameraForm>();
-            cameraForm?.Redo();
-        }
-
-        private void btnSrc_Click_1(object sender, EventArgs e)
-        {
-            var cameraForm = MainForm.GetDockForm<CameraForm>();
-            cameraForm?.RestoreOriginal();
-        }
-
-        private void checkFilter_CheckedChanged(object sender, EventArgs e)
-        {
-            var cameraForm = MainForm.GetDockForm<CameraForm>();
-            if (cameraForm != null)
-            {
-                cameraForm.SerFilterMode(checkFilter.Checked);
-            }
-        }
     }
 }
+
 

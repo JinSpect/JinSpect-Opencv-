@@ -35,7 +35,7 @@
             // btnUP
             // 
             this.btnUP.AutoSize = true;
-            this.btnUP.Location = new System.Drawing.Point(22, 19);
+            this.btnUP.Location = new System.Drawing.Point(20, 22);
             this.btnUP.Name = "btnUP";
             this.btnUP.Size = new System.Drawing.Size(46, 19);
             this.btnUP.TabIndex = 0;
@@ -47,10 +47,11 @@
             // btnDown
             // 
             this.btnDown.AutoSize = true;
-            this.btnDown.Location = new System.Drawing.Point(22, 44);
+            this.btnDown.Location = new System.Drawing.Point(20, 44);
+            this.btnDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDown.Name = "btnDown";
             this.btnDown.Size = new System.Drawing.Size(65, 19);
-            this.btnDown.TabIndex = 0;
+            this.btnDown.TabIndex = 1;
             this.btnDown.TabStop = true;
             this.btnDown.Text = "Down";
             this.btnDown.UseVisualStyleBackColor = true;
@@ -62,7 +63,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btnDown);
             this.Controls.Add(this.btnUP);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PyramidProp";
             this.Size = new System.Drawing.Size(176, 213);
             this.ResumeLayout(false);

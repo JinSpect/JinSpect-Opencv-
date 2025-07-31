@@ -39,7 +39,7 @@ namespace JinSpect
                 return;
 
             Image bitmap = Image.FromFile(filPath);
-            var mat = OpenCvSharp.Extensions.BitmapConverter.ToMat((Bitmap)bitmap);
+            var mat = BitmapConverter.ToMat((Bitmap)bitmap);
 
             _originalImage = mat.Clone();
             _imgHistory.Clear();
@@ -86,7 +86,7 @@ namespace JinSpect
             if (filterType == PropertyType.Pyramid)
             {
                 src = _useAccumulativeFilter
-                    ? BitmapConverter.ToMat(GetCurrentBitmap())
+                    ? BitmapConverter.ToMat(GetCurrentBitmap()) 
                     : _originalImage.Clone();
             }
             else
@@ -147,18 +147,18 @@ namespace JinSpect
                 MessageBox.Show("원본 이미지가 없습니다.");
             }
         }
-        public void PreviewFilter(PropertyType filterType, dynamic options = null)
-        {
-            if (_originalImage == null) return;
+        //public void PreviewFilter(PropertyType filterType, dynamic options = null)
+        //{
+        //    if (_originalImage == null) return;
 
-            Mat previewBase = _useAccumulativeFilter
-                ? BitmapConverter.ToMat(GetCurrentBitmap())
-                : _originalImage.Clone();
+        //    Mat previewBase = _useAccumulativeFilter
+        //        ? BitmapConverter.ToMat(GetCurrentBitmap())
+        //        : _originalImage.Clone();
 
-            Mat previewResult = Processor.ImageFilterProcessor.Apply(previewBase, filterType, options);
+        //    Mat previewResult = Processor.ImageFilterProcessor.Apply(previewBase, filterType, options);
 
-            imageViewer.LoadBitmap(previewResult.ToBitmap());
-        }
+        //    imageViewer.LoadBitmap(previewResult.ToBitmap());
+        //}
     }
 }
 

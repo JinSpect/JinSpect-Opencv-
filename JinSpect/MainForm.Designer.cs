@@ -30,8 +30,8 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fIleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageOpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.imageSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtFilePath = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -51,33 +51,33 @@
             // fIleToolStripMenuItem
             // 
             this.fIleToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.imageOpenToolStripMenuItem,
-            this.imageSaveToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem});
             this.fIleToolStripMenuItem.Name = "fIleToolStripMenuItem";
             this.fIleToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fIleToolStripMenuItem.Text = "FIle";
             // 
-            // imageOpenToolStripMenuItem
+            // openToolStripMenuItem
             // 
-            this.imageOpenToolStripMenuItem.Name = "imageOpenToolStripMenuItem";
-            this.imageOpenToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.imageOpenToolStripMenuItem.Text = "Image Open";
-            this.imageOpenToolStripMenuItem.Click += new System.EventHandler(this.imageOpenToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Text = "Image Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.imageOpenToolStripMenuItem_Click);
             // 
-            // imageSaveToolStripMenuItem
+            // saveToolStripMenuItem
             // 
-            this.imageSaveToolStripMenuItem.Name = "imageSaveToolStripMenuItem";
-            this.imageSaveToolStripMenuItem.Size = new System.Drawing.Size(177, 26);
-            this.imageSaveToolStripMenuItem.Text = "Image Save";
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Text = "Image Save";
             // 
             // txtFilePath
             // 
             this.txtFilePath.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFilePath.Location = new System.Drawing.Point(52, 2);
+            this.txtFilePath.Location = new System.Drawing.Point(49, 1);
             this.txtFilePath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtFilePath.Name = "txtFilePath";
-            this.txtFilePath.Size = new System.Drawing.Size(829, 26);
-            this.txtFilePath.TabIndex = 2;
+            this.txtFilePath.Size = new System.Drawing.Size(854, 26);
+            this.txtFilePath.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -87,7 +87,7 @@
             this.Controls.Add(this.txtFilePath);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.menuStrip1.ResumeLayout(false);
@@ -101,8 +101,8 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fIleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem imageOpenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem imageSaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.TextBox txtFilePath;
     }
 }

@@ -18,7 +18,7 @@ namespace JinSpect.Property
         }
         public string SelectedDirection { get; private set; } = "Down";
 
-  
+
         private void btnUP_CheckedChanged_1(object sender, EventArgs e)
         {
             SelectedDirection = "Up";

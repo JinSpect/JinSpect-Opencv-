@@ -19,12 +19,21 @@ namespace JinSpect
         public MainForm()
         {
             InitializeComponent();
+            var spacerPanel = new Panel
+            {
+                Height = 30,
+                Dock = DockStyle.Top,
+                BackColor = Color.FromArgb(41, 57, 85)
+            };
+            Controls.Add(spacerPanel);
+            Controls.SetChildIndex(spacerPanel, 1);
 
             _dockPanel = new DockPanel
             {
                 Dock = DockStyle.Fill
             };
             Controls.Add(_dockPanel);
+            Controls.SetChildIndex(_dockPanel, 2);
 
             _dockPanel.Theme = new VS2015BlueTheme();
             LoadDockingWindows();
@@ -66,7 +75,8 @@ namespace JinSpect
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
-                   cameraForm.LoadImage(filePath);
+                    cameraForm.LoadImage(filePath);
+                    txtFilePath.Text = filePath;
                 }
             }
         }
