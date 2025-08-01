@@ -89,6 +89,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AImoduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AImoduleForm.Designer.cs">
+      <DependentUpon>AImoduleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     <Compile Include="UIControl\RangeSliderCtrl.Designer.cs">
       <DependentUpon>RangeSliderCtrl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AImoduleForm.resx">
+      <DependentUpon>AImoduleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CameraForm.resx">
       <DependentUpon>CameraForm.cs</DependentUpon>
     </EmbeddedResource>

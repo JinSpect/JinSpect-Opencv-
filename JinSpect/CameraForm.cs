@@ -83,11 +83,9 @@ namespace JinSpect
             }
 
             Mat src;
-            if (filterType == PropertyType.Pyramid)
+            if (filterType == PropertyType.Pyramid || filterType == PropertyType.Flip)
             {
-                src = _useAccumulativeFilter
-                    ? BitmapConverter.ToMat(GetCurrentBitmap()) 
-                    : _originalImage.Clone();
+                src = BitmapConverter.ToMat(GetCurrentBitmap());
             }
             else
             {
