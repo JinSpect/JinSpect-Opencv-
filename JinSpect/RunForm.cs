@@ -11,9 +11,9 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace JinSpect
 {
-    public partial class AImoduleForm : DockContent
+    public partial class RunForm : DockContent
     {
-        public AImoduleForm()
+        public RunForm()
         {
             InitializeComponent();
         }

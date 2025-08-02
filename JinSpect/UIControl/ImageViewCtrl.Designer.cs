@@ -32,9 +32,11 @@
             // 
             // ImageViewCtrl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ImageViewCtrl";
+            this.Size = new System.Drawing.Size(120, 125);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ImageViewCtrl_MouseDoubleClick);
             this.Resize += new System.EventHandler(this.ImageViewCtrl_Resize);
             this.ResumeLayout(false);

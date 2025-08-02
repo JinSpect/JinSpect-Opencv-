@@ -21,7 +21,7 @@ namespace JinSpect
             InitializeComponent();
             var spacerPanel = new Panel
             {
-                Height = 30,
+                Height = 5,
                 Dock = DockStyle.Top,
                 BackColor = Color.FromArgb(41, 57, 85)
             };
@@ -49,9 +49,13 @@ namespace JinSpect
 
             var propWindow = new PropertiesForm();
             propWindow.Show(_dockPanel, DockState.DockRight);
-
+            var AImouduleWindow = new AImoduleForm();
+            AImouduleWindow.Show(_dockPanel, DockState.DockRight);
+            var runWindow = new RunForm();
+            runWindow.Show(cameraWindow.Pane, DockAlignment.Bottom, 0.2);
             SharedFilterForm = new FilterForm();
             SharedFilterForm.Show(propWindow.Pane, DockAlignment.Bottom, 0.6);
+
 
         }
 
@@ -70,8 +74,9 @@ namespace JinSpect
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Title = "이미지 파일 선택";
-                openFileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif";
+                openFileDialog.Filter = "Image Files (*.jpg; *.jpeg; *.png; *.bmp; *.gif)|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
                 openFileDialog.Multiselect = false;
+
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string filePath = openFileDialog.FileName;
@@ -79,6 +84,11 @@ namespace JinSpect
                     txtFilePath.Text = filePath;
                 }
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //Global.Inst.Dispose();
         }
     }
 }

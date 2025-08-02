@@ -93,11 +93,13 @@ namespace JinSpect
                     ? BitmapConverter.ToMat(GetCurrentBitmap())
                     : _originalImage.Clone();
             }
+
             _imgHistory.Push(src.Clone());
             _redoImg.Clear();
 
             Mat result = Processor.ImageFilterProcessor.Apply(src, filterType, options);
-            imageViewer.LoadBitmap(result.ToBitmap());
+            bool autoFit = !(filterType == PropertyType.Resize || filterType == PropertyType.Pyramid);
+            imageViewer.LoadBitmap(result.ToBitmap(), autoFit);
         }
 
         public void Undo()
@@ -145,18 +147,20 @@ namespace JinSpect
                 MessageBox.Show("원본 이미지가 없습니다.");
             }
         }
-        //public void PreviewFilter(PropertyType filterType, dynamic options = null)
-        //{
-        //    if (_originalImage == null) return;
 
-        //    Mat previewBase = _useAccumulativeFilter
-        //        ? BitmapConverter.ToMat(GetCurrentBitmap())
-        //        : _originalImage.Clone();
+        public void PreviewFilter(PropertyType filterType, dynamic options = null)
+        {
+            if (_originalImage == null) return;
 
-        //    Mat previewResult = Processor.ImageFilterProcessor.Apply(previewBase, filterType, options);
+            // 원본 기준에서만 미리보기
+            Mat previewBase = _useAccumulativeFilter
+                ? BitmapConverter.ToMat(GetCurrentBitmap())
+                : _originalImage.Clone();
 
-        //    imageViewer.LoadBitmap(previewResult.ToBitmap());
-        //}
+            Mat previewResult = Processor.ImageFilterProcessor.Apply(previewBase, filterType, options);
+
+            imageViewer.LoadBitmap(previewResult.ToBitmap());
+        }
     }
 }
 

@@ -30,15 +30,15 @@ namespace JinSpect
             InitializeComponent();
             InitializeCanvas();
 
-            MouseWheel += new MouseEventHandler(ImageViewCtrl_MouseWheel);
+            MouseWheel += new MouseEventHandler(ImageViewCCtrl_MouseWheel);
         }
 
         private void InitializeCanvas()
         {
             ResizeCanvas();
-
             DoubleBuffered = true;
         }
+
         public Bitmap GetCurBitmap()
         {
             return _bitmapImage;
@@ -48,12 +48,6 @@ namespace JinSpect
         {
             if (Width <= 0 || Height <= 0 || _bitmapImage == null)
                 return;
-
-            //if (Canvas != null)
-            //{
-            //    Canvas.Dispose();
-            //    Canvas = null;
-            //}
 
             Canvas = new Bitmap(Width, Height);
             if (Canvas == null)
@@ -68,7 +62,7 @@ namespace JinSpect
             ImageRect = new RectangleF(offsetX, offsetY, virtualWidth, virtualHeight);
         }
 
-        public void LoadBitmap(Bitmap bitmap)
+        public void LoadBitmap(Bitmap bitmap, bool autoFit)
         {
             if (_bitmapImage != null)
             {
@@ -88,10 +82,18 @@ namespace JinSpect
             if (_isInitialized == false)
             {
                 _isInitialized = true;
-                ResizeCanvas();
             }
 
-            FitImageToScreen();
+            ResizeCanvas();
+
+            if (autoFit)
+                FitImageToScreen();
+
+            Invalidate();
+        }
+        public void LoadBitmap(Bitmap bitmap)
+        {
+            LoadBitmap(bitmap, true);  // 기본적으로 autoFit 적용
         }
 
         private void FitImageToScreen()
@@ -101,15 +103,17 @@ namespace JinSpect
             float NewWidth = _bitmapImage.Width * _curZoom;
             float NewHeight = _bitmapImage.Height * _curZoom;
 
+            // 이미지가 UserControl 중앙에 배치되도록 정렬
             ImageRect = new RectangleF(
-                (Width - NewWidth) / 2,
+                (Width - NewWidth) / 2, // UserControl 너비에서 이미지 너비를 뺀 후, 절반을 왼쪽 여백으로 설정하여 중앙 정렬
                 (Height - NewHeight) / 2,
-                 NewWidth,
+                NewWidth,
                 NewHeight
             );
 
             Invalidate();
         }
+
 
         private void RecalcZoomRatio()
         {
@@ -128,6 +132,7 @@ namespace JinSpect
                 ratio = (float)Height / (float)imageSize.Height;
 
             float minZoom = ratio;
+
             MinZoom = minZoom;
 
             _curZoom = Math.Max(MinZoom, Math.Min(MaxZoom, ratio));
@@ -135,39 +140,29 @@ namespace JinSpect
             Invalidate();
         }
 
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
 
             if (_bitmapImage != null && Canvas != null)
             {
+
                 using (Graphics g = Graphics.FromImage(Canvas))
                 {
-                    g.Clear(Color.Transparent);
+                    g.Clear(Color.Transparent); // 배경을 투명하게 설정
+
+                    //이미지 확대or축소때 화질 최적화 방식(Interpolation Mode) 설정                    
                     g.InterpolationMode = InterpolationMode.NearestNeighbor;
                     g.DrawImage(_bitmapImage, ImageRect);
 
+                    // 캔버스를 UserControl 화면에 표시
                     e.Graphics.DrawImage(Canvas, 0, 0);
                 }
             }
         }
 
-        private void ImageViewCtrl_MouseWheel(object sender, MouseEventArgs e)
-        {
-            if (e.Delta < 0)
-                ZoomMove(_curZoom / _zoomFactor, e.Location);
-            else
-                ZoomMove(_curZoom * _zoomFactor, e.Location);
-
-            if (_bitmapImage != null)
-            {
-                ImageRect.Width = _bitmapImage.Width * _curZoom;
-                ImageRect.Height = _bitmapImage.Height * _curZoom;
-            }
-
-            Invalidate();
-        }
-
+        //휠에 의해, Zoom 확대/축소 값 계산
         private void ZoomMove(float zoom, Point zoomOrigin)
         {
             PointF virtualOrigin = ScreenToVirtual(new PointF(zoomOrigin.X, zoomOrigin.Y));
@@ -185,6 +180,8 @@ namespace JinSpect
             ImageRect.Y -= dy;
         }
 
+        // Virtual <-> Screen 좌표계 변환
+        #region 좌표계 변환
         private PointF GetScreenOffset()
         {
             return new PointF(ImageRect.X, ImageRect.Y);
@@ -200,7 +197,7 @@ namespace JinSpect
                 (int)(screenRect.Height / _curZoom + 0.5f));
         }
 
-        private Rectangle VirtualToScreer(Rectangle virtualRect)
+        private Rectangle VirtualToScreen(Rectangle virtualRect)
         {
             PointF offset = GetScreenOffset();
             return new Rectangle(
@@ -210,19 +207,22 @@ namespace JinSpect
                 (int)(virtualRect.Height * _curZoom + 0.5f));
         }
 
-        private PointF ScreenToVirtual(PointF screenPt)
+        private PointF ScreenToVirtual(PointF screenPos)
         {
-            float x = (screenPt.X - ImageRect.X) / _curZoom;
-            float y = (screenPt.Y - ImageRect.Y) / _curZoom;
-            return new PointF(x, y);
+            PointF offset = GetScreenOffset();
+            return new PointF(
+                (screenPos.X - offset.X) / _curZoom,
+                (screenPos.Y - offset.Y) / _curZoom);
         }
 
-        private PointF VirtualToScreen(PointF virtualPt)
+        private PointF VirtualToScreen(PointF virtualPos)
         {
-            float x = virtualPt.X * _curZoom + ImageRect.X;
-            float y = virtualPt.Y * _curZoom + ImageRect.Y;
-            return new PointF(x, y);
+            PointF offset = GetScreenOffset();
+            return new PointF(
+                virtualPos.X * _curZoom + offset.X,
+                virtualPos.Y * _curZoom + offset.Y);
         }
+        #endregion
 
         private void ImageViewCtrl_Resize(object sender, EventArgs e)
         {
@@ -233,7 +233,13 @@ namespace JinSpect
         private void ImageViewCtrl_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             FitImageToScreen();
+        }
+
+
+        private void ImageViewCCtrl_MouseWheel(object sender, MouseEventArgs e)
+        {
 
         }
     }
 }
+
